@@ -1,5 +1,5 @@
 import sys
-from logger import logging
+from src.logger import logging
 # sys.path.append('E:/Machine Learning Projects/mlproject')
 # from src.logger import logging
 
