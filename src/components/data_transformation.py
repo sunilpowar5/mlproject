@@ -105,12 +105,11 @@ class DataTransformation:
 
                 filepath = self.data_tranformation_config.preprocessor_obj_file_path,
                 obj = preprocessing_obj
-            )
+            )   ## utils
 
             return(
                 train_arr,
-                test_arr,
-                self.data_tranformation_config.preprocessor_obj_file_path
+                test_arr
             )
 
         except Exception as e:
