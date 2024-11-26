@@ -3,6 +3,7 @@ import sys
 import dill
 from src.exception import CustomException
 from sklearn.metrics import r2_score
+from sklearn.model_selection import RandomizedSearchCV
 
 import pandas as pd
 import numpy as np
@@ -20,13 +21,21 @@ def save_object(filepath,obj):
         raise CustomException(e,sys)
     
 
-def evaluate_models(X_train,y_train,X_test,y_test,models):
+def evaluate_models(X_train,y_train,X_test,y_test,models,params):
         
     try:
         report = {}
 
         for model_name, model in models.items():
+            para = params[model_name]
+
+            randomized_search = RandomizedSearchCV(model,para,cv=5,verbose=2)
+            randomized_search.fit(X_train,y_train)
+
+            model.set_params(**randomized_search.best_params_)
+
             model.fit(X_train,y_train)
+
 
             y_pred_train = model.predict(X_train)
             y_pred_test = model.predict(X_test)
