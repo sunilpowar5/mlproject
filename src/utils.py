@@ -8,13 +8,13 @@ from sklearn.model_selection import RandomizedSearchCV
 import pandas as pd
 import numpy as np
 
-def save_object(filepath,obj):
+def save_object(file_path,obj):
     
     try:
-        dir_path=os.path.dirname(filepath)
+        dir_path=os.path.dirname(file_path)
         
         os.makedirs(dir_path,exist_ok=True)
-        with open(filepath,'wb') as file_object:
+        with open(file_path,'wb') as file_object:
             dill.dump(obj,file_object)
 
     except Exception as e:
@@ -49,3 +49,11 @@ def evaluate_models(X_train,y_train,X_test,y_test,models,params):
     except Exception as e:
         raise CustomException(e,sys)
     
+
+def load_objects(file_path):
+    try:
+        with open(file_path,'rb') as file:
+            return dill.load(file)
+
+    except Exception as e:
+        raise CustomException(e,sys)
